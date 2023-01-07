@@ -16,7 +16,7 @@ fn hide(salt: &str, text: &str) -> String {
         format!("{:02x}", n)
     }
 
-    let mut encoded = "";
+    let mut encoded = String::new();
 
     for c in text.chars() {
         let code = c as u32;
@@ -24,12 +24,12 @@ fn hide(salt: &str, text: &str) -> String {
         encoded += &byte_hex(code);
     }
 
-    encoded
+    return encoded
 }
 
 // The unhide() function takes a salt and an encoded text as arguments and returns the decoded text.
 fn unhide(salt: &str, encoded: &str) -> String {
-    let mut decoded = "";
+    let mut decoded = "".to_string();
 
     for hex in encoded.as_bytes().chunks(2) {
         let code = u32::from_str_radix(std::str::from_utf8(hex).unwrap(), 16).unwrap();
@@ -37,14 +37,15 @@ fn unhide(salt: &str, encoded: &str) -> String {
         decoded += &std::char::from_u32(code).unwrap().to_string();
     }
 
-    decoded
+    return decoded
 }
 
-// encrypting
-let encrypted_text = hide("salt", "Hello"); // -> 426f666665
-println!("{}", encrypted_text);
+fn main() {
+    // encrypting
+    let encrypted_text = hide("salt", "Hello"); // -> 426f666665
+    println!("Encrypted text is: {}", encrypted_text);
 
-// decrypting
-let decrypted_string = unhide("salt", "426f666665"); // -> Hello
-println!("{}", decrypted_string);
-
+    // decrypting
+    let decrypted_string = unhide("salt", "426f666665"); // -> Hello
+    println!("Decrypted text is: {}", decrypted_string);
+}
