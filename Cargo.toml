@@ -3,6 +3,7 @@ name = "simple_hider"
 version = "0.1.0"
 authors = ["Federico Caruso <federico.caruso@pm.me>"]
 description = "A crate for hiding and unhiding text with a salt value"
+license = "MIT"
 lib = "src/lib.rs"
 
 [dependencies]
